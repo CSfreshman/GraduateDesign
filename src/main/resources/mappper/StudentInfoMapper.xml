@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduateDesign.dao.StudentInfoMapper">
+    <resultMap id="studentMap" type="com.graduateDesign.vo.StudentVo">
+        <id column="id" property="id"/>
+        <result column="stu_name" property="stuName"/>
+        <result column="password" property="password"/>
+        <result column="stu_no" property="stuNo"/>
+        <result column="major" property="major"/>
+        <result column="name" property="majorName"/>
+    </resultMap>
+    <select id="getAllStudent" resultMap="studentMap">
+        select stu.id,stu.stu_name,stu.stu_no,stu.password,major.name from student_info stu left join major on stu.major = major.id;
+    </select>
+</mapper>
