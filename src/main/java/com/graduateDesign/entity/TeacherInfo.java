@@ -55,5 +55,11 @@ public class TeacherInfo implements Serializable {
     @TableField("type")
     private Integer type;
 
+    /**
+     * 剩余可指导学生的数量
+     */
+    @TableField("stock")
+    private Integer stock;
+
 
 }

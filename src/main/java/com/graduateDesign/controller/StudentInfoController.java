@@ -7,6 +7,7 @@ import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.StudentInfoService;
 import com.graduateDesign.vo.StudentVo;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -54,6 +55,11 @@ public class StudentInfoController {
     @PostMapping("/update")
     public ResponseUtil<String> updateStudentInfo(@RequestBody StudentInfo studentInfo){
         return studentInfoService.updateStudentInfo(studentInfo);
+    }
+
+    @PostMapping("/readExcel")
+    public ResponseUtil<String> readExcel(){
+        return studentInfoService.readExcel();
     }
 
 }

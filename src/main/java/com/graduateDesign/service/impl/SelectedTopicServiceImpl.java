@@ -1,9 +1,9 @@
 package com.graduateDesign.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.graduateDesign.constant.ProgressConstant;
-import com.graduateDesign.constant.TeacherType;
 import com.graduateDesign.entity.SelectedTopic;
 import com.graduateDesign.dao.SelectedTopicMapper;
 import com.graduateDesign.entity.StudentInfo;
@@ -18,11 +18,12 @@ import com.graduateDesign.service.StudentInfoService;
 import com.graduateDesign.service.TeacherInfoService;
 import com.graduateDesign.service.TopicInfoService;
 import com.graduateDesign.vo.SelectedTopicVo;
-import com.graduateDesign.vo.TopicVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -36,7 +37,7 @@ import javax.annotation.Resource;
 @Service
 public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, SelectedTopic> implements SelectedTopicService {
     @Resource
-    private SelectedTopicMapper selectedTopicMapper;
+    private SelectedTopicMapper mapper;
     @Resource
     private StudentInfoService studentInfoService;
     @Resource
@@ -51,7 +52,6 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
     }
 
     // 添加选题信息
-    // TODO: 这里可以尝试使用触发器，新加了一个选题信息之后，选择的题目的数量以及老师指导的数量都要相应-1
     @Override
     public ResponseUtil<String> addSelectedTopic(SelectedTopicReq req) {
         StudentInfo studentInfoByNo = studentInfoService.getStudentInfoByNo(req.getStuNo());
@@ -95,6 +95,18 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
         return ResponseUtil.success(vo);
     }
 
+    @Override
+    public ResponseUtil<List<SelectedTopicVo>> getAll() {
+        List<SelectedTopic> selectedTopics = mapper.selectList(new QueryWrapper<>());
+        List<SelectedTopicVo> res = new ArrayList<>();
+        for (SelectedTopic selectedTopic : selectedTopics) {
+            SelectedTopicVo vo = new SelectedTopicVo();
+            copyBean(selectedTopic,vo);
+            res.add(vo);
+        }
+        return ResponseUtil.success(res);
+    }
+
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){
         BeanUtil.copyProperties(info,vo);
         vo.setStudentInfo(studentInfoService.getById(vo.getStuId()));
@@ -107,6 +119,7 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
         topicInfo.setId(vo.getTopicId());
         vo.setTopicVo(topicInfoService.getOne(topicInfo).getData());
 
-        // TODO:添加选题进度描述
+       // 添加选题进度描述
+        vo.setProgressDesc(ProgressConstant.getEnum(info.getProgress()).getValue());
     }
 }

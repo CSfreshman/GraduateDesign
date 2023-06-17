@@ -42,7 +42,7 @@ public class SelectedTopicVo {
     private Integer progress;
 
     /**
-     * 进度莫奥数
+     * 进度描述
      */
     private String progressDesc;
 }

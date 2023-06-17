@@ -8,6 +8,8 @@ import com.graduateDesign.req.SelectedTopicReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.vo.SelectedTopicVo;
 
+import java.util.List;
+
 /**
  * <p>
  * 选题信息表 服务类
@@ -27,4 +29,6 @@ public interface SelectedTopicService extends IService<SelectedTopic> {
     ResponseUtil<String> updateSelectedTopic(SelectedTopic entity);
 
     ResponseUtil<SelectedTopicVo> getOne(SelectedTopic entity);
+
+    ResponseUtil<List<SelectedTopicVo>> getAll();
 }

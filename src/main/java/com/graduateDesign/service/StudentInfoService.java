@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.vo.StudentVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface StudentInfoService extends IService<StudentInfo> {
     ResponseUtil<StudentVo> getOneStudent(StudentInfo req);
 
     StudentInfo getStudentInfoByNo(String stuNo);
+
+    ResponseUtil<String> readExcel();
 }

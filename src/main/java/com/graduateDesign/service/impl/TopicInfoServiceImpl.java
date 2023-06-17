@@ -111,6 +111,8 @@ public class TopicInfoServiceImpl extends ServiceImpl<TopicInfoMapper, TopicInfo
         Integer type = topicInfo.getType();
         QueryWrapper<TeacherInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("type",type);
+        // 余量大于等于1
+        wrapper.ge("stock",1);
         List<TeacherInfo> list = teacherInfoMapper.selectList(wrapper);
         return ResponseUtil.success(list);
     }

@@ -23,4 +23,14 @@ public enum MajorEnum {
         return null;
     }
 
+    public static MajorEnum getMajorEnum(String value){
+        for (MajorEnum item : values()){
+            // System.out.println(item.value + "||" + value);
+            if(item.value.equals(value)){
+                return item;
+            }
+        }
+        return null;
+    }
+
 }

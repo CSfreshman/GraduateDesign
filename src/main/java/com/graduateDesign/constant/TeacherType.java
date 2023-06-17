@@ -9,7 +9,9 @@ public enum TeacherType {
     WEB(1,"web"),
     OS(2,"操作系统"),
     DEEPLEARN(3,"深度学习"),
-    ALGORITHM(4,"算法")
+    ALGORITHM(4,"算法"),
+    NETWORK(5,"网络相关"),
+    EMBEDDED(6,"嵌入式系统")
     ;
 
     public final Integer key;

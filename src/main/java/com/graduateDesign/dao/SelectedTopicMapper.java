@@ -3,6 +3,9 @@ package com.graduateDesign.dao;
 import com.graduateDesign.entity.SelectedTopic;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SelectedTopicMapper extends BaseMapper<SelectedTopic> {
 
+
+    List<SelectedTopic> getAll();
 }

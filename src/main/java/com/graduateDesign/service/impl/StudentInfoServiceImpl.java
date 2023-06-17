@@ -2,20 +2,29 @@ package com.graduateDesign.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.ListUtil;
+import cn.hutool.json.JSONUtil;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.graduateDesign.constant.MajorEnum;
 import com.graduateDesign.entity.StudentInfo;
 import com.graduateDesign.dao.StudentInfoMapper;
+import com.graduateDesign.excel.StudentExcelEntity;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.StudentInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.graduateDesign.util.StudentDataListener;
+import com.graduateDesign.util.TestUtil;
 import com.graduateDesign.vo.StudentVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +37,7 @@ import java.util.Objects;
  * @since 2023年06月13日
  */
 @Service
+@Slf4j
 public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, StudentInfo> implements StudentInfoService {
 
     @Resource
@@ -95,4 +105,18 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
         wrapper.eq("stu_no",stuNo);
         return mapper.selectOne(wrapper);
     }
+
+    @Override
+    public ResponseUtil<String> readExcel() {
+        String fileName = "C:\\Users\\wzw\\Desktop\\studentInfo.xlsx";
+        try{
+            EasyExcel.read(fileName, StudentExcelEntity.class,new StudentDataListener(mapper)).sheet().doRead();
+        }catch (Exception e){
+            e.printStackTrace();
+            log.info("出错了:{}",e.getMessage());
+        }
+        return ResponseUtil.success("成功");
+    }
+
+
 }

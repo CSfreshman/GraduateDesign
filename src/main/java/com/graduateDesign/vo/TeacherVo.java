@@ -38,4 +38,9 @@ public class TeacherVo {
      * 课题类型描述
      */
     private String typeDesc;
+
+    /**
+     * 选题剩余
+     */
+    private Integer stock;
 }
