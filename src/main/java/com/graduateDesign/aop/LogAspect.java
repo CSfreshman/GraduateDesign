@@ -1,5 +1,6 @@
 package com.graduateDesign.aop;
 
+import com.graduateDesign.resp.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -40,7 +41,8 @@ public class LogAspect {
     // 执行后置通知：记录响应内容
     @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterReturning(Object result) throws Exception {
+        result = (ResponseUtil) result;
         // 记录响应内容
-        log.info("==========    RESPONSE : " + result);
+        log.info("==========    RESPONSE : " + ((ResponseUtil<?>) result).getData().toString());
     }
 }
