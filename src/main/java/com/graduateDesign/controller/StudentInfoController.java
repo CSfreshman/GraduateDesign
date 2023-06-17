@@ -39,7 +39,7 @@ public class StudentInfoController {
 
     @PostMapping("/getOne")
     public ResponseUtil<StudentVo> getOneStudent(@RequestBody StudentInfo req){
-        return studentInfoService.getOneStudent(req);
+        return studentInfoService.getOneStudentByNo(req);
     }
 
     @PostMapping("/add")
@@ -62,4 +62,8 @@ public class StudentInfoController {
         return studentInfoService.readExcel();
     }
 
+    @PostMapping("/test")
+    public ResponseUtil<String> test(){
+        return studentInfoService.test();
+    }
 }

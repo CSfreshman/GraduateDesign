@@ -30,9 +30,14 @@ public interface StudentInfoService extends IService<StudentInfo> {
 
     ResponseUtil<List<StudentVo>> getAllStudent();
 
-    ResponseUtil<StudentVo> getOneStudent(StudentInfo req);
+    ResponseUtil<StudentVo> getOneStudentByNo(StudentInfo req);
+
+    ResponseUtil<StudentVo> getOneStudentById(StudentInfo req);
 
     StudentInfo getStudentInfoByNo(String stuNo);
 
     ResponseUtil<String> readExcel();
+
+
+    ResponseUtil<String> test();
 }

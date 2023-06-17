@@ -87,9 +87,21 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
     }
 
     @Override
-    public ResponseUtil<StudentVo> getOneStudent(StudentInfo req) {
+    public ResponseUtil<StudentVo> getOneStudentByNo(StudentInfo req) {
         QueryWrapper<StudentInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("stu_no",req.getStuNo());
+        StudentInfo studentInfo = mapper.selectOne(wrapper);
+
+        StudentVo vo = new StudentVo();
+        BeanUtil.copyProperties(studentInfo,vo);
+        vo.setMajorName(Objects.requireNonNull(MajorEnum.getMajorEnum(vo.getMajor())).getValue());
+        return ResponseUtil.success(vo);
+    }
+
+    @Override
+    public ResponseUtil<StudentVo> getOneStudentById(StudentInfo req) {
+        QueryWrapper<StudentInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",req.getId());
         StudentInfo studentInfo = mapper.selectOne(wrapper);
 
         StudentVo vo = new StudentVo();
@@ -116,6 +128,11 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
             log.info("出错了:{}",e.getMessage());
         }
         return ResponseUtil.success("成功");
+    }
+
+    @Override
+    public ResponseUtil<String> test() {
+        return ResponseUtil.success(mapper.getAllStudent1().toString());
     }
 
 

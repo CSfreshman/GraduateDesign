@@ -9,7 +9,11 @@
         <result column="major" property="major"/>
         <result column="name" property="majorName"/>
     </resultMap>
-    <select id="getAllStudent" resultMap="studentMap">
-        select stu.id,stu.stu_name,stu.stu_no,stu.password,major.name from student_info stu left join major on stu.major = major.id;
+    <select id="getAllStudent1" resultType="com.graduateDesign.entity.StudentInfo">
+        select * from student_info;
+    </select>
+
+    <select id="test1" resultType="com.graduateDesign.entity.StudentInfo">
+        select * from student_info where stu_no = '2020218000';
     </select>
 </mapper>

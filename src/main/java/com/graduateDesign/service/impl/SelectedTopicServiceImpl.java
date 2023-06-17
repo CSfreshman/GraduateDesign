@@ -109,7 +109,9 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
 
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){
         BeanUtil.copyProperties(info,vo);
-        vo.setStudentInfo(studentInfoService.getById(vo.getStuId()));
+        StudentInfo studentInfo = new StudentInfo();
+        studentInfo.setId(vo.getStuId());
+        vo.setStudentVo(studentInfoService.getOneStudentById(studentInfo).getData());
 
         TeacherInfo teacherInfo = new TeacherInfo();
         teacherInfo.setId(vo.getTeacherId());

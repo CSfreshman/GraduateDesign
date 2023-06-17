@@ -20,7 +20,7 @@ public class SelectedTopicVo {
      */
     private Long stuId;
 
-    private StudentInfo studentInfo;
+    private StudentVo studentVo;
 
     /**
      * 课题id

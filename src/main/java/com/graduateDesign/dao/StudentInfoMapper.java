@@ -24,5 +24,8 @@ public interface StudentInfoMapper extends BaseMapper<StudentInfo> {
     @Select("select stu.id,stu.stu_name,stu.stu_no,stu.password,stu.major,major.name from student_info stu left join major on stu.major = major.id;")
     List<StudentVo> getAllStudent();
 
-    Integer saveBatch(List<StudentExcelEntity> cachedDataList);
+    List<StudentInfo> getAllStudent1();
+
+    @Select("select * from student_info where stu_no = '2020218000'")
+    StudentInfo test();
 }
