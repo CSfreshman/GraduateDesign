@@ -11,6 +11,11 @@ public class SelectedTopicReq {
     private Long topicId;
 
     /**
+     * 指导教师工号
+     */
+    private String teacherNo;
+
+    /**
      * 指导教师id
      */
     private Long teacherId;
@@ -19,4 +24,9 @@ public class SelectedTopicReq {
      * 学生学号
      */
     private String stuNo;
+
+    /**
+     * 进度
+     */
+    private Integer progress;
 }

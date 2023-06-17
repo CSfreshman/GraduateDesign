@@ -2,7 +2,9 @@ package com.graduateDesign.dao;
 
 import com.graduateDesign.entity.SelectedTopic;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.graduateDesign.req.SelectedTopicReq;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -18,6 +20,5 @@ import java.util.List;
 @Mapper
 public interface SelectedTopicMapper extends BaseMapper<SelectedTopic> {
 
-
-    List<SelectedTopic> getAll();
+    List<SelectedTopic> getByCondition(@Param("req") SelectedTopicReq req);
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduateDesign.dao.SelectedTopicMapper">
+    <select id="getByCondition" resultType="com.graduateDesign.entity.SelectedTopic">
+        select st.* from selected_topic st
+        left join student_info si on st.stu_id = si.id
+        left join teacher_info ti1 on st.teacher_id = ti1.id
+        <where>
+            <if test="req.topicId != null">
+                st.topic_id = #{req.topicId}
+            </if>
+            <if test="req.teacherNo != null">
+                and ti1.teacher_no = #{req.teacherNo}
+            </if>
+            <if test="req.stuNo != null">
+                and si.stu_no = #{req.stuNo}
+            </if>
+            <if test="req.progress != null">
+                and st.progress = #{req.progress}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -107,6 +107,19 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
         return ResponseUtil.success(res);
     }
 
+    @Override
+    public ResponseUtil<List<SelectedTopicVo>> getByCondition(SelectedTopicReq req) {
+        log.info("请求参数信息：{}",req.toString());
+        List<SelectedTopic> selectedTopics = mapper.getByCondition(req);
+        List<SelectedTopicVo> res = new ArrayList<>();
+        for (SelectedTopic selectedTopic : selectedTopics) {
+            SelectedTopicVo vo = new SelectedTopicVo();
+            copyBean(selectedTopic,vo);
+            res.add(vo);
+        }
+        return ResponseUtil.success(res);
+    }
+
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){
         BeanUtil.copyProperties(info,vo);
         StudentInfo studentInfo = new StudentInfo();

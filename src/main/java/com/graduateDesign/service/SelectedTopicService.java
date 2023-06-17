@@ -31,4 +31,6 @@ public interface SelectedTopicService extends IService<SelectedTopic> {
     ResponseUtil<SelectedTopicVo> getOne(SelectedTopic entity);
 
     ResponseUtil<List<SelectedTopicVo>> getAll();
+
+    ResponseUtil<List<SelectedTopicVo>> getByCondition(SelectedTopicReq req);
 }

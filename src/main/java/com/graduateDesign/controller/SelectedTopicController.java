@@ -45,8 +45,8 @@ public class SelectedTopicController {
     }
 
     @PostMapping("/add")
-    public ResponseUtil<String> addSelectedTopic(@RequestBody SelectedTopicReq entity){
-        return service.addSelectedTopic(entity);
+    public ResponseUtil<String> addSelectedTopic(@RequestBody SelectedTopicReq req){
+        return service.addSelectedTopic(req);
     }
 
     @PostMapping("/delete")
@@ -57,5 +57,10 @@ public class SelectedTopicController {
     @PostMapping("/update")
     public ResponseUtil<String> updateSelectedTopic(@RequestBody SelectedTopic entity){
         return service.updateSelectedTopic(entity);
+    }
+
+    @PostMapping("/getByCondition")
+    public ResponseUtil<List<SelectedTopicVo>> getByCondition(@RequestBody SelectedTopicReq req){
+        return service.getByCondition(req);
     }
 }
