@@ -1,6 +1,7 @@
 package com.graduateDesign.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.graduateDesign.annotion.Log;
 import com.graduateDesign.entity.SelectedTopic;
 import com.graduateDesign.entity.TopicInfo;
 import com.graduateDesign.req.PageReq;
@@ -59,6 +60,7 @@ public class SelectedTopicController {
         return service.updateSelectedTopic(entity);
     }
 
+    @Log
     @PostMapping("/getByCondition")
     public ResponseUtil<List<SelectedTopicVo>> getByCondition(@RequestBody SelectedTopicReq req){
         return service.getByCondition(req);

@@ -1,6 +1,7 @@
 package com.graduateDesign.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.graduateDesign.annotion.Log;
 import com.graduateDesign.entity.StudentInfo;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
@@ -62,6 +63,7 @@ public class StudentInfoController {
         return studentInfoService.readExcel();
     }
 
+    @Log
     @PostMapping("/test")
     public ResponseUtil<String> test(){
         return studentInfoService.test();
