@@ -123,7 +123,7 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
             //defense.setDate(LocalDateTime.parse(req.getMidCheckDate(),df));
             defense.setDate(req.getDefenseDate());
             // 获得地点
-            defense.setLocation(req.getMidCheckLocation());
+            defense.setLocation(req.getDefenseLocation());
             // 选题编号
             defense.setSelectedTopicId(req.getId());
             defenseService.save(defense);
@@ -137,9 +137,10 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
             // 获得各种成绩
             Score score = new Score();
             score.setAdvisorScore(req.getAdvisorScore());
-            score.setReviewerScore(req.getReviewScore());
+            score.setReviewerScore(req.getReviewerScore());
             score.setCommitteeScore(req.getCommitteeScore());
             score.setFinalScore(req.getFinalScore());
+            score.setSelectedTopicId(req.getId());
             scoreService.save(score);
         }
         return ResponseUtil.success("111");

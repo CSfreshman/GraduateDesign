@@ -80,7 +80,7 @@ public class SelectedTopicReq {
     /**
      * 评阅教师成绩
      */
-    private Double reviewScore;
+    private Double reviewerScore;
 
     /**
      * 答辩小组成绩

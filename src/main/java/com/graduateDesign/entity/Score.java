@@ -32,10 +32,10 @@ public class Score implements Serializable {
     private Long id;
 
     /**
-     * 学生id
+     * 选题id
      */
-    @TableField("stu_id")
-    private Long stuId;
+    @TableField("selected_topic_id")
+    private Long selectedTopicId;
 
     /**
      * 指导教师
