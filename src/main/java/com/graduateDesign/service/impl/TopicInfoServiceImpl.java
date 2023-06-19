@@ -1,6 +1,7 @@
 package com.graduateDesign.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,13 +11,19 @@ import com.graduateDesign.dao.TeacherInfoMapper;
 import com.graduateDesign.entity.TeacherInfo;
 import com.graduateDesign.entity.TopicInfo;
 import com.graduateDesign.dao.TopicInfoMapper;
+import com.graduateDesign.excel.TeacherExcel;
+import com.graduateDesign.excel.TopicExcel;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.TeacherInfoService;
 import com.graduateDesign.service.TopicInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.graduateDesign.util.TeacherDataListener;
+import com.graduateDesign.util.TopicDataListener;
 import com.graduateDesign.vo.TeacherVo;
 import com.graduateDesign.vo.TopicVo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,12 +39,14 @@ import java.util.List;
  * @since 2023年06月13日
  */
 @Service
+@Slf4j
 public class TopicInfoServiceImpl extends ServiceImpl<TopicInfoMapper, TopicInfo> implements TopicInfoService {
     @Resource
     private TopicInfoMapper mapper;
     @Resource
     private TeacherInfoMapper teacherInfoMapper;
-
+    @Value("${topicExcelFileName}")
+    private String topicExcelFileName;
     @Override
     public ResponseUtil<IPage<TopicVo>> getTopics(PageReq pageReq) {
         Page<TopicInfo> page = new Page<>(pageReq.getCurPage(), pageReq.getPageSize());
@@ -115,6 +124,19 @@ public class TopicInfoServiceImpl extends ServiceImpl<TopicInfoMapper, TopicInfo
         wrapper.ge("stock",1);
         List<TeacherInfo> list = teacherInfoMapper.selectList(wrapper);
         return ResponseUtil.success(list);
+    }
+
+    @Override
+    public ResponseUtil<String> readExcel() {
+        String fileName = topicExcelFileName;
+        try{
+            EasyExcel.read(fileName, TopicExcel.class,new TopicDataListener(mapper)).sheet().doRead();
+        }catch (Exception e){
+            e.printStackTrace();
+            log.info("出错了:{}",e.getMessage());
+
+        }
+        return ResponseUtil.success("成功");
     }
 
     public void copyBean(TopicInfo info, TopicVo vo){

@@ -2,6 +2,7 @@ package com.graduateDesign.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.graduateDesign.constant.ProgressConstant;
 import com.graduateDesign.entity.SelectedTopic;
@@ -118,6 +119,39 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
             res.add(vo);
         }
         return ResponseUtil.success(res);
+    }
+
+    @Override
+    public ResponseUtil<List<SelectedTopicVo>> getSelectedStuListByTeacherNo(String teacherNo) {
+        List<SelectedTopicVo> list = mapper.getSelectedStuListByTeacherNo(teacherNo);
+        for (SelectedTopicVo vo : list) {
+            vo.setProgressDesc(ProgressConstant.getEnum(vo.getProgress()).getValue());
+        }
+        return ResponseUtil.success(list);
+    }
+
+    @Override
+    public ResponseUtil<List<SelectedTopicVo>> getSelectingStuListByTeacherNo(String teacherNo) {
+        List<SelectedTopicVo> list = mapper.getSelectingStuListByTeacherNo(teacherNo);
+        for (SelectedTopicVo vo : list) {
+            vo.setProgressDesc(ProgressConstant.getEnum(vo.getProgress()).getValue());
+        }
+        return ResponseUtil.success(list);
+    }
+
+    @Override
+    public ResponseUtil<String> agree(SelectedTopicReq req) {
+        UpdateWrapper<SelectedTopic> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id",req.getId())
+                .set("progress",ProgressConstant.WAITING_FOR_OPENING.getKey());
+        boolean update = update(wrapper);
+        return update ? ResponseUtil.success("成功") : ResponseUtil.error("失败");
+    }
+
+    @Override
+    public ResponseUtil<String> refuse(SelectedTopicReq req) {
+        boolean b = removeById(req.getId());
+        return b ? ResponseUtil.success("成功") : ResponseUtil.error("失败");
     }
 
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){

@@ -1,6 +1,7 @@
 package com.graduateDesign.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -9,13 +10,18 @@ import com.graduateDesign.dao.StudentInfoMapper;
 import com.graduateDesign.entity.StudentInfo;
 import com.graduateDesign.entity.TeacherInfo;
 import com.graduateDesign.dao.TeacherInfoMapper;
+import com.graduateDesign.excel.TeacherExcel;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.TeacherInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.graduateDesign.util.TeacherDataListener;
 import com.graduateDesign.vo.TeacherVo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.pattern.PathPattern;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -31,10 +37,12 @@ import java.util.Objects;
  * @since 2023年06月13日
  */
 @Service
+@Slf4j
 public class TeacherInfoServiceImpl extends ServiceImpl<TeacherInfoMapper, TeacherInfo> implements TeacherInfoService {
     @Resource
     private TeacherInfoMapper mapper;
-
+    @Value("${teacherExcelFileName}")
+    private String teacherExcelFileName;
     @Override
     public ResponseUtil<String> updateTeacherInfo(TeacherInfo teacherInfo) {
         boolean b = updateById(teacherInfo);
@@ -101,6 +109,26 @@ public class TeacherInfoServiceImpl extends ServiceImpl<TeacherInfoMapper, Teach
             res.add(vo);
         }
         return ResponseUtil.success(res);
+    }
+
+    @Override
+    public ResponseUtil<String> readExcel() {
+        String fileName = teacherExcelFileName;
+        try{
+            EasyExcel.read(fileName, TeacherExcel.class,new TeacherDataListener(mapper)).sheet().doRead();
+        }catch (Exception e){
+            e.printStackTrace();
+            log.info("出错了:{}",e.getMessage());
+
+        }
+        return ResponseUtil.success("成功");
+    }
+
+    @Override
+    public ResponseUtil<TeacherVo> getInfo(String teacherNo) {
+        TeacherVo vo = mapper.getInfo(teacherNo);
+        vo.setTypeDesc(TeacherType.getTeacherType(vo.getType()).getValue());
+        return ResponseUtil.success(vo);
     }
 
     public void copyBean(TeacherInfo info, TeacherVo vo){

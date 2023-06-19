@@ -33,4 +33,6 @@ public interface TopicInfoService extends IService<TopicInfo> {
     ResponseUtil<List<TopicVo>> getAll();
 
     ResponseUtil<List<TeacherInfo>> getTeacherCanSelect(TopicInfo topicInfo);
+
+    ResponseUtil<String> readExcel();
 }

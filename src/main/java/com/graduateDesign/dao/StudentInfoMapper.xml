@@ -16,4 +16,19 @@
     <select id="test1" resultType="com.graduateDesign.entity.StudentInfo">
         select * from student_info where stu_no = '2020218000';
     </select>
+
+    <select id="login" resultType="java.lang.Integer">
+        select count(*) from student_info where stu_no = #{loginUser.username} and password = #{loginUser.password}
+    </select>
+
+    <select id="getInfo" resultType="com.graduateDesign.vo.StudentVo">
+        select si.stu_no as stuNo,si.stu_name as stuName,m.name as majorName,st.id as selectedTopicId,ti2.topic_name as topicName,ti2.type as topicType,ti1.teacher_name,st.progress
+        from student_info si
+        left join major m on si.major = m.id
+        left join selected_topic st on st.stu_id = si.id
+        left join topic_info ti2 on st.topic_id = ti2.id
+        left join teacher_info ti1 on ti1.id = st.teacher_id
+        where si.stu_no = #{stuNo}
+    </select>
+
 </mapper>

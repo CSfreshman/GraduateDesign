@@ -31,4 +31,8 @@ public interface TeacherInfoService extends IService<TeacherInfo> {
     ResponseUtil<TeacherVo> getOne(TeacherInfo teacherInfo);
 
     ResponseUtil<List<TeacherVo>> getAll();
+
+    ResponseUtil<String> readExcel();
+
+    ResponseUtil<TeacherVo> getInfo(String teacherNo);
 }

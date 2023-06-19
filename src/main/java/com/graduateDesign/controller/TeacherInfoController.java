@@ -56,4 +56,15 @@ public class TeacherInfoController {
     public ResponseUtil<String> updateTeacherInfo(@RequestBody TeacherInfo teacherInfo){
         return teacherInfoService.updateTeacherInfo(teacherInfo);
     }
+
+    @PostMapping("/readExcel")
+    public ResponseUtil<String> readExcel(){
+        return teacherInfoService.readExcel();
+    }
+
+    @GetMapping("/getInfo/{teacherNo}")
+    public ResponseUtil<TeacherVo> getInfo(@PathVariable("teacherNo") String teacherNo){
+        return teacherInfoService.getInfo(teacherNo);
+    }
+
 }

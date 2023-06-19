@@ -25,4 +25,13 @@ public enum TeacherType {
         }
         return null;
     }
+
+    public static TeacherType getTeacherType(String value) {
+        for (TeacherType teacherType : values()) {
+            if (teacherType.getValue().equals(value)) {
+                return teacherType;
+            }
+        }
+        return null;
+    }
 }

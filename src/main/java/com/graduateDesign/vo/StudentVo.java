@@ -38,4 +38,40 @@ public class StudentVo {
      * 专业名称
      */
     private String majorName;
+
+    /**
+     * 选题编号
+     */
+    private Long selectedTopicId;
+
+    /**
+     * 选题名称
+     */
+    private String topicName;
+
+    /**
+     * 题目类型类型
+     */
+    private String topicTypeDesc;
+
+    /**
+     * 指导老师名称
+     */
+    private String teacherName;
+
+    /**
+     * 选题类型id
+     */
+    private Integer topicType;
+
+    /**
+     * 选题进度描述
+     */
+    private String progressDesc;
+
+    /**
+     * 选题进度
+     */
+    private Integer progress;
 }
+

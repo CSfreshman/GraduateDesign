@@ -33,4 +33,12 @@ public interface SelectedTopicService extends IService<SelectedTopic> {
     ResponseUtil<List<SelectedTopicVo>> getAll();
 
     ResponseUtil<List<SelectedTopicVo>> getByCondition(SelectedTopicReq req);
+
+    ResponseUtil<List<SelectedTopicVo>> getSelectedStuListByTeacherNo(String teacherNo);
+
+    ResponseUtil<List<SelectedTopicVo>> getSelectingStuListByTeacherNo(String teacherNo);
+
+    ResponseUtil<String> agree(SelectedTopicReq req);
+
+    ResponseUtil<String> refuse(SelectedTopicReq req);
 }

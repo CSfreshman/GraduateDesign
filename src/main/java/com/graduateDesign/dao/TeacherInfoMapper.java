@@ -1,8 +1,11 @@
 package com.graduateDesign.dao;
 
+import com.graduateDesign.entity.LoginUser;
 import com.graduateDesign.entity.TeacherInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.graduateDesign.vo.TeacherVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,4 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TeacherInfoMapper extends BaseMapper<TeacherInfo> {
 
+    Integer login(@Param("loginUser") LoginUser loginUser);
+
+    TeacherVo getInfo(@Param("teacherNo") String teacherNo);
 }

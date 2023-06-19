@@ -65,4 +65,25 @@ public class SelectedTopicController {
     public ResponseUtil<List<SelectedTopicVo>> getByCondition(@RequestBody SelectedTopicReq req){
         return service.getByCondition(req);
     }
+
+    @GetMapping("/getSelectedStuListByTeacherNo/{teacherNo}")
+    public ResponseUtil<List<SelectedTopicVo>> getSelectedStuListByTeacherNo(@PathVariable("teacherNo") String teacherNo){
+        return service.getSelectedStuListByTeacherNo(teacherNo);
+    }
+
+    @GetMapping("/getSelectingStuListByTeacherNo/{teacherNo}")
+    public ResponseUtil<List<SelectedTopicVo>> getSelectingStuListByTeacherNo(@PathVariable("teacherNo") String teacherNo){
+        return service.getSelectingStuListByTeacherNo(teacherNo);
+    }
+
+    @PostMapping("/agree")
+    public ResponseUtil<String> agree(@RequestBody SelectedTopicReq req){
+        return service.agree(req);
+    }
+
+    @PostMapping("/refuse")
+    public ResponseUtil<String> refuse(@RequestBody SelectedTopicReq req){
+        return service.refuse(req);
+    }
+
 }

@@ -40,4 +40,6 @@ public interface StudentInfoService extends IService<StudentInfo> {
 
 
     ResponseUtil<String> test();
+
+    ResponseUtil<StudentVo> getInfo(String stuNo);
 }

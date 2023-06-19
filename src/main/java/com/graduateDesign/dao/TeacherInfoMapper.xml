@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduateDesign.dao.TeacherInfoMapper">
+
+    <select id="login" resultType="java.lang.Integer">
+        select count(*) from teacher_info where teacher_no = #{loginUser.username} and password = #{loginUser.password}
+    </select>
+
+    <select id="getInfo" resultType="com.graduateDesign.vo.TeacherVo">
+        select teacher_name , teacher_no,type,stock from teacher_info where teacher_no = #{teacherNo}
+    </select>
+
+
+</mapper>

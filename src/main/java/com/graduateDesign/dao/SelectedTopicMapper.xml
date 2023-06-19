@@ -20,4 +20,20 @@
             </if>
         </where>
     </select>
+
+    <select id="getSelectedStuListByTeacherNo" resultType="com.graduateDesign.vo.SelectedTopicVo">
+        select si.stu_no as stuNo,si.stu_name as stuName,st.id as id,ti2.topic_name as topicName,st.progress from teacher_info ti1
+          left join selected_topic st on st.teacher_id = ti1.id
+          left join topic_info ti2 on st.topic_id = ti2.id
+          left join student_info si on si.id = st.stu_id
+        where ti1.teacher_no = #{teacherNo} and st.progress > 11
+    </select>
+
+    <select id="getSelectingStuListByTeacherNo" resultType="com.graduateDesign.vo.SelectedTopicVo">
+        select si.stu_no as stuNo,si.stu_name as stuName,st.id as id,ti2.topic_name as topicName,st.progress from teacher_info ti1
+          left join selected_topic st on st.teacher_id = ti1.id
+          left join topic_info ti2 on st.topic_id = ti2.id
+          left join student_info si on si.id = st.stu_id
+        where ti1.teacher_no = #{teacherNo} and st.progress = 11
+    </select>
 </mapper>

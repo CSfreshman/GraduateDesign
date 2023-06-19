@@ -9,6 +9,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.graduateDesign.constant.MajorEnum;
+import com.graduateDesign.constant.ProgressConstant;
+import com.graduateDesign.constant.TeacherType;
+import com.graduateDesign.controller.TeacherInfoController;
 import com.graduateDesign.entity.StudentInfo;
 import com.graduateDesign.dao.StudentInfoMapper;
 import com.graduateDesign.excel.StudentExcelEntity;
@@ -20,6 +23,7 @@ import com.graduateDesign.util.StudentDataListener;
 import com.graduateDesign.util.TestUtil;
 import com.graduateDesign.vo.StudentVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +46,8 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
 
     @Resource
     private StudentInfoMapper mapper;
+    @Value("${studentExcelFileName}")
+    private String studentExcelFileName;
 
     @Override
     public ResponseUtil<IPage<StudentInfo>> getStudents(PageReq pageReq) {
@@ -120,7 +126,7 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
 
     @Override
     public ResponseUtil<String> readExcel() {
-        String fileName = "C:\\Users\\wzw\\Desktop\\studentInfo.xlsx";
+        String fileName = studentExcelFileName;
         try{
             EasyExcel.read(fileName, StudentExcelEntity.class,new StudentDataListener(mapper)).sheet().doRead();
         }catch (Exception e){
@@ -133,6 +139,19 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
     @Override
     public ResponseUtil<String> test() {
         return ResponseUtil.success(mapper.getAllStudent1().toString());
+    }
+
+    @Override
+    public ResponseUtil<StudentVo> getInfo(String stuNo) {
+        StudentVo vo = mapper.getInfo(stuNo);
+        if(vo.getTopicType() != null){
+            vo.setTopicTypeDesc(TeacherType.getTeacherType(vo.getTopicType()).getValue());
+        }
+        if(vo.getProgress() != null){
+            vo.setProgressDesc(ProgressConstant.getEnum(vo.getProgress()).getValue());
+        }
+
+        return ResponseUtil.success(vo);
     }
 
 

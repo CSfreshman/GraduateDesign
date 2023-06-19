@@ -61,4 +61,9 @@ public class TopicInfoController {
     public ResponseUtil<List<TeacherInfo>> getTeacherCanSelect(@RequestBody TopicInfo topicInfo){
         return service.getTeacherCanSelect(topicInfo);
     }
+
+    @PostMapping("/readExcel")
+    public ResponseUtil<String> readExcel(){
+        return service.readExcel();
+    }
 }

@@ -20,12 +20,37 @@ public class SelectedTopicVo {
      */
     private Long stuId;
 
+    /**
+     * 学生姓名
+     */
+    private String stuName;
+
+    /**
+     * 学号
+     */
+    private String stuNo;
+
+    /**
+     * 专业
+     */
+    private Integer major;
+
+    /**
+     * 专业名称
+     */
+    private String majorName;
+
     private StudentVo studentVo;
 
     /**
      * 课题id
      */
     private Long topicId;
+
+    /**
+     * 选题名称
+     */
+    private String topicName;
 
     private TopicVo topicVo;
 

@@ -1,12 +1,15 @@
 package com.graduateDesign.dao;
 
+import com.graduateDesign.entity.LoginUser;
 import com.graduateDesign.entity.StudentInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduateDesign.excel.StudentExcelEntity;
 import com.graduateDesign.vo.StudentVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.relational.core.sql.In;
 
 import java.util.List;
 
@@ -28,4 +31,8 @@ public interface StudentInfoMapper extends BaseMapper<StudentInfo> {
 
     @Select("select * from student_info where stu_no = '2020218000'")
     StudentInfo test();
+
+    Integer login(@Param("loginUser") LoginUser loginUser);
+
+    StudentVo getInfo(@Param("stuNo") String stuNo);
 }

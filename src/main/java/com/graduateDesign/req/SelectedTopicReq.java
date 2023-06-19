@@ -6,6 +6,10 @@ import lombok.Data;
 @Data
 public class SelectedTopicReq {
     /**
+     * 选题编号
+     */
+    private Long id;
+    /**
      * 课题id
      */
     private Long topicId;
