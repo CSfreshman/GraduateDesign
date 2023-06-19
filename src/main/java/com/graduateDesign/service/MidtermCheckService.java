@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduateDesign.entity.SelectedTopic;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
+import com.graduateDesign.vo.MidtermCheckVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -27,4 +30,6 @@ public interface MidtermCheckService extends IService<MidtermCheck> {
     ResponseUtil<String> updateMidtermCheck(MidtermCheck entity);
 
     ResponseUtil<MidtermCheck> getOne(MidtermCheck entity);
+
+    ResponseUtil<List<MidtermCheckVo>> getAll();
 }

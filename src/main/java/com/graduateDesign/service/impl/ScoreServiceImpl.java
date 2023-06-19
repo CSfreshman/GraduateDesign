@@ -102,20 +102,6 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
             vo.setTeacherName(selectedTopicVo.getTeacherVo().getTeacherName());
             resVo.add(vo);
         }
-//        List<ScoreVo> collect = scores.stream().map(v -> {
-//            ScoreVo vo = new ScoreVo();
-//            BeanUtil.copyProperties(v, vo);
-//            SelectedTopicReq req = new SelectedTopicReq();
-//            req.setId(v.getSelectedTopicId());
-//            SelectedTopicVo selectedTopicVo = selectedTopicService.getByCondition(req).getData().get(0);
-//            log.info(selectedTopicVo.toString());
-//            vo.setStuNo(selectedTopicVo.getStudentVo().getStuNo());
-//            vo.setStuName(selectedTopicVo.getStudentVo().getStuName());
-//            vo.setTopicName(selectedTopicVo.getTopicVo().getTopicName());
-//            vo.setTopicType(TeacherType.getTeacherType(selectedTopicVo.getTopicVo().getType()).getValue());
-//            vo.setTeacherName(selectedTopicVo.getTeacherVo().getTeacherName());
-//            return vo;
-//        }).collect(Collectors.toList());
         return ResponseUtil.success(resVo);
     }
 }
