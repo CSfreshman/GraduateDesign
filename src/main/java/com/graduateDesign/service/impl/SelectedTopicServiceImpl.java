@@ -1,29 +1,29 @@
 package com.graduateDesign.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.graduateDesign.constant.ProgressConstant;
-import com.graduateDesign.entity.SelectedTopic;
+import com.graduateDesign.entity.*;
 import com.graduateDesign.dao.SelectedTopicMapper;
-import com.graduateDesign.entity.StudentInfo;
-import com.graduateDesign.entity.TeacherInfo;
-import com.graduateDesign.entity.TopicInfo;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.req.SelectedTopicReq;
 import com.graduateDesign.resp.ResponseUtil;
-import com.graduateDesign.service.SelectedTopicService;
+import com.graduateDesign.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.graduateDesign.service.StudentInfoService;
-import com.graduateDesign.service.TeacherInfoService;
-import com.graduateDesign.service.TopicInfoService;
 import com.graduateDesign.vo.SelectedTopicVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +45,12 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
     private TeacherInfoService teacherInfoService;
     @Resource
     private TopicInfoService topicInfoService;
+    @Resource
+    private MidtermCheckService midtermCheckService;
+    @Resource
+    private DefenseService defenseService;
+    @Resource
+    private ScoreService scoreService;
 
     @Override
     public ResponseUtil<IPage<SelectedTopicVo>> getSelectedTopics(PageReq pageReq) {
@@ -80,12 +86,62 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
     }
 
     @Override
-    public ResponseUtil<String> updateSelectedTopic(SelectedTopic entity) {
-        boolean b = updateById(entity);
-        if(b){
-            return ResponseUtil.success("修改成功");
+    public ResponseUtil<String> updateSelectedTopic(SelectedTopicReq req) {
+        if(req.getProgress() != req.getOriginalProgress() + 1){
+            return ResponseUtil.error("更新状态非法");
         }
-        return ResponseUtil.error("修改失败");
+        int progress = req.getProgress();
+        UpdateWrapper<SelectedTopic> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",req.getId())
+                .set("progress",progress);
+        boolean update = update(updateWrapper);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if(!update){
+            return ResponseUtil.error("更新失败");
+        }
+        if(progress == 12){
+            // 更新为等待开题报告
+            // do-nothing
+        }else if(progress == 13){
+            // 更新为等待中期检查
+            MidtermCheck midtermCheck = new MidtermCheck();
+            // 获得中期检查时间
+            midtermCheck.setDate(LocalDateTime.parse(req.getMidCheckDate(),df));
+            // 获得中期检查地点
+            midtermCheck.setLocation(req.getMidCheckLocation());
+            // 选题编号
+            midtermCheck.setSelectedTopicId(req.getId());
+            midtermCheckService.save(midtermCheck);
+        }else if(progress == 14){
+            // 更新为等待答辩
+            // 先填写中期检察意见
+            if(StringUtils.isNotBlank(req.getMidCheckOpinion())){
+                midtermCheckService.update(new UpdateWrapper<MidtermCheck>().eq("selected_topic_id",req.getId()).set("opinion",req.getMidCheckOpinion()));
+            }
+            Defense defense = new Defense();
+            // 获得时间
+            defense.setDate(LocalDateTime.parse(req.getMidCheckDate(),df));
+            // 获得地点
+            defense.setLocation(req.getMidCheckLocation());
+            // 选题编号
+            defense.setSelectedTopicId(req.getId());
+            defenseService.save(defense);
+
+        }else if(progress == 15){
+            // 更新为完成状态
+            // 先填写
+            if(StringUtils.isNotBlank(req.getDefenseRecord())){
+                defenseService.update(new UpdateWrapper<Defense>().eq("selected_topic_id",req.getId()).set("record",req.getDefenseRecord()));
+            }
+            // 获得各种成绩
+            Score score = new Score();
+            score.setAdvisorScore(req.getAdvisorScore());
+            score.setReviewerScore(req.getReviewScore());
+            score.setCommitteeScore(req.getCommitteeScore());
+            score.setFinalScore(req.getFinalScore());
+            scoreService.save(score);
+        }
+        return ResponseUtil.success("111");
     }
 
     @Override

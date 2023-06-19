@@ -30,7 +30,63 @@ public class SelectedTopicReq {
     private String stuNo;
 
     /**
-     * 进度
+     * 原来的进度
+     */
+    private Integer originalProgress;
+
+    /**
+     * 更新为什么进度
      */
     private Integer progress;
+
+    /**
+     * 中期检查时间
+     */
+    private String midCheckDate;
+
+    /**
+     * 中期检查地点
+     */
+    private String midCheckLocation;
+
+    /**
+     * 中期检查意见
+     */
+    private String midCheckOpinion;
+
+    /**
+     * 答辩时间
+     */
+    private String defenseDate;
+
+    /**
+     * 答辩地点
+     */
+    private String defenseLocation;
+
+    /**
+     * 答辩记录
+     */
+    private String defenseRecord;
+
+    /**
+     * 指导教师成绩
+     */
+    private Double advisorScore;
+
+
+    /**
+     * 评阅教师成绩
+     */
+    private Double reviewScore;
+
+    /**
+     * 答辩小组成绩
+     */
+    private Double committeeScore;
+
+    /**
+     * 最终成绩
+     */
+    private Double finalScore;
 }

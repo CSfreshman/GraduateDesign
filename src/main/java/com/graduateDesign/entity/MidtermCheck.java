@@ -35,8 +35,8 @@ public class MidtermCheck implements Serializable {
     /**
      * 选题编号
      */
-    @TableField("select_topic_id")
-    private Long selectTopicId;
+    @TableField("selected_topic_id")
+    private Long selectedTopicId;
 
     /**
      * 中期检查日期

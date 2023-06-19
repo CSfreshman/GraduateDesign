@@ -26,7 +26,7 @@ public interface SelectedTopicService extends IService<SelectedTopic> {
 
     ResponseUtil<String> deleteSelectedTopic(SelectedTopic entity);
 
-    ResponseUtil<String> updateSelectedTopic(SelectedTopic entity);
+    ResponseUtil<String> updateSelectedTopic(SelectedTopicReq entity);
 
     ResponseUtil<SelectedTopicVo> getOne(SelectedTopic entity);
 

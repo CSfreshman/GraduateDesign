@@ -35,8 +35,8 @@ public class Defense implements Serializable {
     /**
      * 选题编号
      */
-    @TableField("topic_id")
-    private Long topicId;
+    @TableField("selected_topic_id")
+    private Long selectedTopicId;
 
     /**
      * 答辩日期

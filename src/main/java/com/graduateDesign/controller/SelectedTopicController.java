@@ -55,9 +55,10 @@ public class SelectedTopicController {
         return service.deleteSelectedTopic(entity);
     }
 
+    @Log
     @PostMapping("/update")
-    public ResponseUtil<String> updateSelectedTopic(@RequestBody SelectedTopic entity){
-        return service.updateSelectedTopic(entity);
+    public ResponseUtil<String> updateSelectedTopic(@RequestBody SelectedTopicReq req){
+        return service.updateSelectedTopic(req);
     }
 
     @Log
