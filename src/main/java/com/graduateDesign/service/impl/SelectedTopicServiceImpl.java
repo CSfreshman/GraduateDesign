@@ -95,7 +95,7 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
         updateWrapper.eq("id",req.getId())
                 .set("progress",progress);
         boolean update = update(updateWrapper);
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if(!update){
             return ResponseUtil.error("更新失败");
         }
@@ -106,7 +106,7 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
             // 更新为等待中期检查
             MidtermCheck midtermCheck = new MidtermCheck();
             // 获得中期检查时间
-            midtermCheck.setDate(LocalDateTime.parse(req.getMidCheckDate(),df));
+            midtermCheck.setDate(req.getMidCheckDate());
             // 获得中期检查地点
             midtermCheck.setLocation(req.getMidCheckLocation());
             // 选题编号
@@ -120,7 +120,8 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
             }
             Defense defense = new Defense();
             // 获得时间
-            defense.setDate(LocalDateTime.parse(req.getMidCheckDate(),df));
+            //defense.setDate(LocalDateTime.parse(req.getMidCheckDate(),df));
+            defense.setDate(req.getDefenseDate());
             // 获得地点
             defense.setLocation(req.getMidCheckLocation());
             // 选题编号

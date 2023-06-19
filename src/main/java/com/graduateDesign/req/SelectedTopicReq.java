@@ -3,6 +3,8 @@ package com.graduateDesign.req;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class SelectedTopicReq {
     /**
@@ -42,7 +44,7 @@ public class SelectedTopicReq {
     /**
      * 中期检查时间
      */
-    private String midCheckDate;
+    private LocalDateTime midCheckDate;
 
     /**
      * 中期检查地点
@@ -57,7 +59,7 @@ public class SelectedTopicReq {
     /**
      * 答辩时间
      */
-    private String defenseDate;
+    private LocalDateTime defenseDate;
 
     /**
      * 答辩地点

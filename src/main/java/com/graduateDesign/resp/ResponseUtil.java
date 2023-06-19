@@ -32,6 +32,7 @@ public class ResponseUtil<T> {
     public static <T> ResponseUtil<T> error(String msg) {
         ResponseUtil r = new ResponseUtil();
         r.msg = msg;
+        r.data = msg;
         r.code = 0;
         r.status = 0;
         return r;
