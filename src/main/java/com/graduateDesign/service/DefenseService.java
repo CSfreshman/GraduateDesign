@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduateDesign.entity.MidtermCheck;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
+import com.graduateDesign.vo.DefenseVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,4 +29,6 @@ public interface DefenseService extends IService<Defense> {
     ResponseUtil<String> deleteDefense(Defense entity);
 
     ResponseUtil<String> updateDefense(Defense entity);
+
+    ResponseUtil<List<DefenseVo>> getAll();
 }

@@ -7,12 +7,11 @@ import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.DefenseService;
 import com.graduateDesign.service.MidtermCheckService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.graduateDesign.vo.DefenseVo;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -52,5 +51,10 @@ public class DefenseController {
     @PostMapping("/update")
     public ResponseUtil<String> updateDefense(@RequestBody Defense entity){
         return service.updateDefense(entity);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseUtil<List<DefenseVo>> getAll(){
+        return service.getAll();
     }
 }
