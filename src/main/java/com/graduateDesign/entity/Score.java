@@ -38,7 +38,7 @@ public class Score implements Serializable {
     private Long selectedTopicId;
 
     /**
-     * 指导教师
+     * 指导教师成绩
      */
     @TableField("advisor_score")
     private Double advisorScore;

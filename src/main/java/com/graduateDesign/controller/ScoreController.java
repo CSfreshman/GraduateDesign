@@ -6,12 +6,11 @@ import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.ScoreService;
 import com.graduateDesign.service.ScoreService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.graduateDesign.vo.ScoreVo;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -51,5 +50,10 @@ public class ScoreController {
     @PostMapping("/update")
     public ResponseUtil<String> updateScore(@RequestBody Score entity){
         return service.updateScore(entity);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseUtil<List<ScoreVo>> getAll(){
+        return service.getAll();
     }
 }

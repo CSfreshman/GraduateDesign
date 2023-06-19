@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.graduateDesign.constant.ProgressConstant;
+import com.graduateDesign.dao.ScoreMapper;
 import com.graduateDesign.entity.*;
 import com.graduateDesign.dao.SelectedTopicMapper;
 import com.graduateDesign.req.PageReq;
@@ -50,7 +51,7 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
     @Resource
     private DefenseService defenseService;
     @Resource
-    private ScoreService scoreService;
+    private ScoreMapper scoreMapper;
 
     @Override
     public ResponseUtil<IPage<SelectedTopicVo>> getSelectedTopics(PageReq pageReq) {
@@ -141,7 +142,7 @@ public class SelectedTopicServiceImpl extends ServiceImpl<SelectedTopicMapper, S
             score.setCommitteeScore(req.getCommitteeScore());
             score.setFinalScore(req.getFinalScore());
             score.setSelectedTopicId(req.getId());
-            scoreService.save(score);
+            scoreMapper.insert(score);
         }
         return ResponseUtil.success("111");
     }

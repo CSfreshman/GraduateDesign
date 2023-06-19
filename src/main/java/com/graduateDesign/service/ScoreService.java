@@ -5,6 +5,9 @@ import com.graduateDesign.entity.Score;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
+import com.graduateDesign.vo.ScoreVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,4 +28,6 @@ public interface ScoreService extends IService<Score> {
     ResponseUtil<String> deleteScore(Score entity);
 
     ResponseUtil<String> updateScore(Score entity);
+
+    ResponseUtil<List<ScoreVo>> getAll();
 }
