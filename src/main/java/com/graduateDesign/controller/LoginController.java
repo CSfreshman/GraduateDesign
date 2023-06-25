@@ -32,7 +32,7 @@ public class LoginController {
         } else if (loginUser.getRole() == 2) {
             count = teacherInfoMapper.login(loginUser);
         } else {
-
+            return ResponseUtil.success("登录成功");
         }
         return count == 0 ? ResponseUtil.error("用户名或密码错误") : ResponseUtil.success("登录成功");
     }

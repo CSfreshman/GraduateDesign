@@ -63,6 +63,7 @@ public class StudentInfoController {
         return studentInfoService.readExcel();
     }
 
+    @Log
     @GetMapping("/getInfo/{stuNo}")
     public ResponseUtil<StudentVo> getInfo(@PathVariable("stuNo") String stuNo){
         return studentInfoService.getInfo(stuNo);

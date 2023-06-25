@@ -13,6 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 @Aspect
 @Component
@@ -29,10 +30,19 @@ public class LogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
+        Enumeration<String> headerNames = request.getHeaderNames();
+        StringBuilder header = new StringBuilder();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            header.append(headerName).append(": ").append(headerValue).append("||");
+        }
+
         // 记录请求内容
         log.info("==========    URL : " + request.getRequestURL().toString());
         log.info("==========    HTTP_METHOD : " + request.getMethod());
         log.info("==========    IP : " + request.getRemoteAddr());
+        log.info("==========    HEADER : " + header);
         log.info("==========    CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         log.info("==========    ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
@@ -41,8 +51,7 @@ public class LogAspect {
     // 执行后置通知：记录响应内容
     @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterReturning(Object result) throws Exception {
-        result = (ResponseUtil) result;
         // 记录响应内容
-        log.info("==========    RESPONSE : " + ((ResponseUtil<?>) result).getData().toString());
+        log.info("==========    RESPONSE : " + result);
     }
 }
