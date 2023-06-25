@@ -30,4 +30,6 @@ public interface ScoreService extends IService<Score> {
     ResponseUtil<String> updateScore(Score entity);
 
     ResponseUtil<List<ScoreVo>> getAll();
+
+    ResponseUtil<Score> getByStuId(Long stuId);
 }

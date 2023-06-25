@@ -32,4 +32,6 @@ public interface MidtermCheckService extends IService<MidtermCheck> {
     ResponseUtil<MidtermCheck> getOne(MidtermCheck entity);
 
     ResponseUtil<List<MidtermCheckVo>> getAll();
+
+    ResponseUtil<MidtermCheck> getByStuId(Long stuId);
 }

@@ -115,6 +115,11 @@ public class DefenseServiceImpl extends ServiceImpl<DefenseMapper, Defense> impl
         return ResponseUtil.success(collect);
     }
 
+    @Override
+    public ResponseUtil<Defense> getByStuId(Long stuId) {
+        return ResponseUtil.success(mapper.getByStuId(stuId));
+    }
+
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){
         BeanUtil.copyProperties(info,vo);
         StudentInfo studentInfo = new StudentInfo();

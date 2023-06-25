@@ -113,6 +113,11 @@ public class MidtermCheckServiceImpl extends ServiceImpl<MidtermCheckMapper, Mid
         return ResponseUtil.success(collect);
     }
 
+    @Override
+    public ResponseUtil<MidtermCheck> getByStuId(Long stuId) {
+        return ResponseUtil.success(mapper.getByStuId(stuId));
+    }
+
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){
         BeanUtil.copyProperties(info,vo);
         StudentInfo studentInfo = new StudentInfo();

@@ -3,6 +3,7 @@ package com.graduateDesign.dao;
 import com.graduateDesign.entity.Score;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,4 +16,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ScoreMapper extends BaseMapper<Score> {
 
+    Score getByStuId(@Param("stuId") Long stuId);
 }

@@ -9,6 +9,7 @@ import com.graduateDesign.service.MidtermCheckService;
 import com.graduateDesign.service.SelectedTopicService;
 import com.graduateDesign.vo.MidtermCheckVo;
 import com.graduateDesign.vo.SelectedTopicVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -57,5 +58,10 @@ public class MidtermCheckController {
     @GetMapping("/getAll")
     public ResponseUtil<List<MidtermCheckVo>> getAll(){
         return service.getAll();
+    }
+
+    @GetMapping("/getByStuId/{stuId}")
+    public ResponseUtil<MidtermCheck> getByStuId(@PathVariable("stuId") Long stuId){
+        return service.getByStuId(stuId);
     }
 }

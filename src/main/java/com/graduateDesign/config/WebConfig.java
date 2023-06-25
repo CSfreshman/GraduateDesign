@@ -44,9 +44,13 @@ public class WebConfig implements WebMvcConfigurer {
                         "/admin/login",             // 登录
                         "/studentInfo/getInfo/**",  // 个人信息
                         "/teacherInfo/getAll",     // 老师列表
-                        "topicInfo/getTeacherCanSelect", // 查询可以选择的老师
+                        "/topicInfo/getTeacherCanSelect", // 查询可以选择的老师
                         "/topicInfo/getAll",        // 选题列表
-                        "/selectedTopic/add"        // 选题
+                        "/selectedTopic/add",        // 选题
+                        "/midtermCheck/getByStuId/**",  // 查询学生的中期检查信息
+                        "/defense/getByStuId/**",       // 查询学生的答辩信息
+                        "/score/getByStuId/**"        // 查询学生的成绩信息
+
                 );
     }
 

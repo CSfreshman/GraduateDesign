@@ -31,4 +31,6 @@ public interface DefenseService extends IService<Defense> {
     ResponseUtil<String> updateDefense(Defense entity);
 
     ResponseUtil<List<DefenseVo>> getAll();
+
+    ResponseUtil<Defense> getByStuId(Long stuId);
 }

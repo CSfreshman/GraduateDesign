@@ -15,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DefenseMapper extends BaseMapper<Defense> {
 
+    Defense getByStuId(Long stuId);
 }

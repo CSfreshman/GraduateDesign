@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduateDesign.dao.DefenseMapper">
+
+    <select id="getByStuId" resultType="com.graduateDesign.entity.Defense">
+        select d.* from defense d left join selected_topic st on d.selected_topic_id = st.id where st.stu_id = #{stuId}
+    </select>
+
+</mapper>

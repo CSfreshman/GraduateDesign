@@ -22,7 +22,7 @@
     </select>
 
     <select id="getInfo" resultType="com.graduateDesign.vo.StudentVo">
-        select si.stu_no as stuNo,si.stu_name as stuName,m.name as majorName,st.id as selectedTopicId,ti2.topic_name as topicName,ti2.type as topicType,ti1.teacher_name,st.progress
+        select si.id as id,si.stu_no as stuNo,si.stu_name as stuName,si.major as major,m.name as majorName,st.id as selectedTopicId,ti2.topic_name as topicName,ti2.type as topicType,ti1.teacher_name,st.progress
         from student_info si
         left join major m on si.major = m.id
         left join selected_topic st on st.stu_id = si.id

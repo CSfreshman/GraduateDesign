@@ -39,12 +39,14 @@ public class LogAspect {
         }
 
         // 记录请求内容
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         log.info("==========    URL : " + request.getRequestURL().toString());
         log.info("==========    HTTP_METHOD : " + request.getMethod());
         log.info("==========    IP : " + request.getRemoteAddr());
         log.info("==========    HEADER : " + header);
         log.info("==========    CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         log.info("==========    ARGS : " + Arrays.toString(joinPoint.getArgs()));
+        log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
     }
 
     // 后置通知

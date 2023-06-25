@@ -104,4 +104,9 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
         }
         return ResponseUtil.success(resVo);
     }
+
+    @Override
+    public ResponseUtil<Score> getByStuId(Long stuId) {
+        return ResponseUtil.success(mapper.getByStuId(stuId));
+    }
 }

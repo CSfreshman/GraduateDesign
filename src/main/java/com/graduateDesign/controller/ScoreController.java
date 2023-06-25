@@ -1,6 +1,7 @@
 package com.graduateDesign.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.graduateDesign.entity.Defense;
 import com.graduateDesign.entity.Score;
 import com.graduateDesign.req.PageReq;
 import com.graduateDesign.resp.ResponseUtil;
@@ -55,5 +56,10 @@ public class ScoreController {
     @GetMapping("/getAll")
     public ResponseUtil<List<ScoreVo>> getAll(){
         return service.getAll();
+    }
+
+    @GetMapping("/getByStuId/{stuId}")
+    public ResponseUtil<Score> getByStuId(@PathVariable("stuId") Long stuId) {
+        return service.getByStuId(stuId);
     }
 }
