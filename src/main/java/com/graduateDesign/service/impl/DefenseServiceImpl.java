@@ -120,6 +120,31 @@ public class DefenseServiceImpl extends ServiceImpl<DefenseMapper, Defense> impl
         return ResponseUtil.success(mapper.getByStuId(stuId));
     }
 
+    @Override
+    public ResponseUtil<DefenseVo> getByStuNo(String stuNo) {
+        Defense v = mapper.getByStuNo(stuNo);
+        DefenseVo vo = new DefenseVo();
+        BeanUtil.copyProperties(v,vo);
+        SelectedTopicReq selectedTopicReq = new SelectedTopicReq();
+        selectedTopicReq.setId(v.getSelectedTopicId());
+        List<SelectedTopicVo> res = new ArrayList<>();
+        List<SelectedTopic> dataList = selectedTopicMapper.getByCondition(selectedTopicReq);
+        for (SelectedTopic selectedTopic : dataList) {
+            SelectedTopicVo vo1 = new SelectedTopicVo();
+            copyBean(selectedTopic,vo1);
+            res.add(vo1);
+        }
+        SelectedTopicVo data = res.get(0);
+        log.info("选题信息：{}",data);
+        vo.setStuNo(data.getStudentVo().getStuNo());
+        vo.setStuName(data.getStudentVo().getStuName());
+        vo.setTeacherName(data.getTeacherVo().getTeacherName());
+        vo.setTopicName(data.getTopicVo().getTopicName());
+        vo.setProgress(data.getProgress());
+        vo.setProgressDesc(ProgressConstant.getEnum(data.getProgress()).getValue());
+        return ResponseUtil.success(vo);
+    }
+
     public void copyBean(SelectedTopic info, SelectedTopicVo vo){
         BeanUtil.copyProperties(info,vo);
         StudentInfo studentInfo = new StudentInfo();

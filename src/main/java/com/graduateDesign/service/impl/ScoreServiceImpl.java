@@ -109,4 +109,23 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
     public ResponseUtil<Score> getByStuId(Long stuId) {
         return ResponseUtil.success(mapper.getByStuId(stuId));
     }
+
+    @Override
+    public ResponseUtil<ScoreVo> getByStuNo(String stuNo) {
+        Score score = mapper.getByStuNo(stuNo);
+        ScoreVo vo = new ScoreVo();
+        BeanUtil.copyProperties(score, vo);
+        SelectedTopicReq req = new SelectedTopicReq();
+        req.setId(score.getSelectedTopicId());
+        List<SelectedTopicVo> data = selectedTopicService.getByCondition(req).getData();
+        log.info("改buging：{}",data);
+        SelectedTopicVo selectedTopicVo = data.get(0);
+        log.info(selectedTopicVo.toString());
+        vo.setStuNo(selectedTopicVo.getStudentVo().getStuNo());
+        vo.setStuName(selectedTopicVo.getStudentVo().getStuName());
+        vo.setTopicName(selectedTopicVo.getTopicVo().getTopicName());
+        vo.setTopicType(TeacherType.getTeacherType(selectedTopicVo.getTopicVo().getType()).getValue());
+        vo.setTeacherName(selectedTopicVo.getTeacherVo().getTeacherName());
+        return ResponseUtil.success(vo);
+    }
 }

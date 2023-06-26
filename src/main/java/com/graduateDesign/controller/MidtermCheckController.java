@@ -64,4 +64,9 @@ public class MidtermCheckController {
     public ResponseUtil<MidtermCheck> getByStuId(@PathVariable("stuId") Long stuId){
         return service.getByStuId(stuId);
     }
+
+    @GetMapping("/getByStuNo/{stuNo}")
+    public ResponseUtil<MidtermCheckVo> getByStuNo(@PathVariable("stuNo") String stuNo){
+        return service.getByStuNo(stuNo);
+    }
 }

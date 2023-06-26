@@ -6,4 +6,7 @@
         select s.* from score s left join selected_topic st on s.selected_topic_id = st.id where st.stu_id = #{stuId}
     </select>
 
+    <select id="getByStuNo" resultType="com.graduateDesign.entity.Score">
+        select s.* from score s left join selected_topic st on s.selected_topic_id = st.id left join student_info si on si.id = st.stu_id where si.stu_no = #{stuNo}
+    </select>
 </mapper>

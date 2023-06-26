@@ -6,4 +6,8 @@
         select mc.* from midterm_check mc left join selected_topic st on mc.selected_topic_id = st.id where st.stu_id = #{stuId}
     </select>
 
+    <select id="getByStuNo" resultType="com.graduateDesign.entity.MidtermCheck">
+        select mc.* from midterm_check mc left join selected_topic st on mc.selected_topic_id = st.id left join student_info si on si.id = st.stu_id where si.stu_no = #{stuNo}
+    </select>
+
 </mapper>

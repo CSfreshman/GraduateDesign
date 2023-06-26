@@ -33,4 +33,6 @@ public interface DefenseService extends IService<Defense> {
     ResponseUtil<List<DefenseVo>> getAll();
 
     ResponseUtil<Defense> getByStuId(Long stuId);
+
+    ResponseUtil<DefenseVo> getByStuNo(String stuNo);
 }

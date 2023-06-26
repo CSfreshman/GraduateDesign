@@ -8,6 +8,7 @@ import com.graduateDesign.resp.ResponseUtil;
 import com.graduateDesign.service.ScoreService;
 import com.graduateDesign.service.ScoreService;
 import com.graduateDesign.vo.ScoreVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -61,5 +62,10 @@ public class ScoreController {
     @GetMapping("/getByStuId/{stuId}")
     public ResponseUtil<Score> getByStuId(@PathVariable("stuId") Long stuId) {
         return service.getByStuId(stuId);
+    }
+
+    @GetMapping("/getByStuNo/{stuNo}")
+    public ResponseUtil<ScoreVo> getByStuNo(@PathVariable("stuNo") String stuNo){
+        return service.getByStuNo(stuNo);
     }
 }

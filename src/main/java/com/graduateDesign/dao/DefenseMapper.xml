@@ -6,4 +6,8 @@
         select d.* from defense d left join selected_topic st on d.selected_topic_id = st.id where st.stu_id = #{stuId}
     </select>
 
+    <select id="getByStuNo" resultType="com.graduateDesign.entity.Defense">
+        select d.* from defense d left join selected_topic st on d.selected_topic_id = st.id left join student_info si on si.id = st.stu_id where si.stu_no = #{stuNo}
+    </select>
+
 </mapper>

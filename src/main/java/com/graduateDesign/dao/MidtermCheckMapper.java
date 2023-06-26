@@ -18,4 +18,6 @@ import org.apache.ibatis.annotations.Param;
 public interface MidtermCheckMapper extends BaseMapper<MidtermCheck> {
 
     MidtermCheck getByStuId(@Param("stuId") Long stuId);
+
+    MidtermCheck getByStuNo(@Param("stuNo") String stuNo);
 }

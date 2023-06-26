@@ -32,4 +32,6 @@ public interface ScoreService extends IService<Score> {
     ResponseUtil<List<ScoreVo>> getAll();
 
     ResponseUtil<Score> getByStuId(Long stuId);
+
+    ResponseUtil<ScoreVo> getByStuNo(String stuNo);
 }

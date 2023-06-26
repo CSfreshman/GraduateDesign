@@ -17,4 +17,6 @@ import org.apache.ibatis.annotations.Param;
 public interface ScoreMapper extends BaseMapper<Score> {
 
     Score getByStuId(@Param("stuId") Long stuId);
+
+    Score getByStuNo(@Param("stuNo") String stuNo);
 }

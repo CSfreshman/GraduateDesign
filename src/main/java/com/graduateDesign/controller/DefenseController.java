@@ -63,4 +63,9 @@ public class DefenseController {
     public ResponseUtil<Defense> getByStuId(@PathVariable("stuId") Long stuId) {
         return service.getByStuId(stuId);
     }
+
+    @GetMapping("/getByStuNo/{stuNo}")
+    public ResponseUtil<DefenseVo> getByStuNo(@PathVariable("stuNo") String stuNo){
+        return service.getByStuNo(stuNo);
+    }
 }
